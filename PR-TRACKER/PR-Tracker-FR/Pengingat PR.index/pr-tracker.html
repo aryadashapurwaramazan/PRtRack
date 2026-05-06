@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PR Tracker - Pengingat Tugas</title>
 <style>
-:root{--mint:#E4FDE1;--green:#8ACB88;--teal:#648381;--dark:#575761;--yellow:#FFBF46}
+:root{--mint:#5DF8D8;--green:#6FD1D7;--teal:#3B7597;--dark:#093C5D;--yellow:#FFBF46}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:system-ui,sans-serif;background:#f4faf3;color:#333}
 .hidden{display:none!important}
@@ -14,6 +14,9 @@ body{font-family:system-ui,sans-serif;background:#f4faf3;color:#333}
 .login-box{background:#fff;border-radius:20px;padding:40px;max-width:400px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.2)}
 .login-logo{text-align:center;margin-bottom:30px}
 .login-logo h1{font-size:2rem;color:var(--dark);margin:10px 0}
+.login-logo-icon{font-size:3rem}
+.login-subtitle{color:#888}
+.login-hint{text-align:center;margin-top:15px;font-size:.8rem;color:#aaa}
 .role-tabs{display:flex;gap:8px;margin-bottom:20px;background:var(--mint);border-radius:10px;padding:4px}
 .role-tab{flex:1;padding:10px;border:none;border-radius:8px;font-weight:600;background:transparent;color:var(--teal);cursor:pointer}
 .role-tab.active{background:var(--dark);color:var(--mint)}
@@ -22,18 +25,26 @@ body{font-family:system-ui,sans-serif;background:#f4faf3;color:#333}
 .fg input,.fg select{width:100%;padding:10px;border:2px solid #ddd;border-radius:8px;font-size:.9rem}
 .fg input:focus,.fg select:focus{outline:none;border-color:var(--green)}
 .btn-primary{width:100%;padding:12px;background:var(--green);border:none;border-radius:10px;font-size:1rem;font-weight:700;color:var(--dark);cursor:pointer}
-.btn-primary:hover{background:#7abf78}
+.btn-primary:hover{background:#5bc8ce}
 .app{display:flex;min-height:100vh}
 .sidebar{width:240px;background:var(--dark);color:var(--mint);position:fixed;height:100vh;overflow-y:auto}
 .sidebar-logo{padding:20px;border-bottom:1px solid rgba(255,255,255,.1)}
 .sidebar-logo h2{font-size:1.3rem}
-.nav-item{display:flex;align-items:center;gap:10px;padding:12px 20px;color:rgba(228,253,225,.7);cursor:pointer;transition:.2s}
-.nav-item:hover{background:rgba(138,203,136,.15);color:var(--mint)}
+.nav-item{display:flex;align-items:center;gap:10px;padding:12px 20px;color:rgba(93,248,216,.7);cursor:pointer;transition:.2s}
+.nav-item:hover{background:rgba(111,209,215,.15);color:var(--mint)}
 .nav-item.active{background:var(--green);color:var(--dark);font-weight:700}
 .user-info{padding:20px;border-top:1px solid rgba(255,255,255,.1);margin-top:auto}
+.user-name{font-weight:700}
+.user-role{font-size:.8rem;opacity:.7}
+.btn-logout{margin-top:10px;padding:8px 15px;background:var(--green);border:none;border-radius:6px;cursor:pointer;width:100%;font-weight:600;color:var(--dark)}
 .main{margin-left:240px;flex:1;padding:20px}
 .topbar{background:#fff;padding:15px 20px;border-radius:12px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.05)}
-.btn-add{padding:10px 20px;background:var(--green);border:none;border-radius:8px;font-weight:700;cursor:pointer}
+.topbar-left h2{margin:0}
+.topbar-date{font-size:.85rem;color:#888}
+.btn-add{padding:10px 20px;background:var(--green);border:none;border-radius:8px;font-weight:700;cursor:pointer;color:var(--dark)}
+.btn-teal{background:var(--teal);margin-left:10px;color:#fff}
+.btn-yellow{background:var(--yellow);color:var(--dark);text-decoration:none;margin-left:10px}
+.btn-sheets{background:var(--green);text-decoration:none;margin-left:10px;color:var(--dark)}
 .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin-bottom:20px}
 .stat-card{background:#fff;padding:20px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.05);cursor:pointer;transition:.2s}
 .stat-card:hover{transform:translateY(-3px);box-shadow:0 4px 12px rgba(0,0,0,.1)}
@@ -51,31 +62,51 @@ th,td{padding:12px;text-align:left}
 tbody tr:nth-child(even){background:#f9f9f9}
 tbody tr:hover{background:var(--mint)}
 .badge{display:inline-block;padding:4px 10px;border-radius:20px;font-size:.75rem;font-weight:600}
-.badge-done{background:#d4f5d4;color:#1a6b1a}
+.badge-done{background:#cdf5f6;color:#093C5D}
 .badge-pending{background:#fff0cc;color:#7a5200}
 .badge-late{background:#fde0e0;color:#8b1a1a}
 .btn-sm{padding:5px 10px;border:none;border-radius:5px;font-size:.8rem;cursor:pointer;margin:0 2px}
-.btn-edit{background:var(--mint);color:var(--teal)}
+.btn-edit{background:var(--mint);color:var(--dark)}
 .btn-del{background:#fde0e0;color:#8b1a1a}
-.btn-submit{background:#d4f5d4;color:#1a6b1a}
+.btn-submit{background:#cdf5f6;color:#093C5D}
 .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);align-items:center;justify-content:center;z-index:1000}
 .modal.open{display:flex}
 .modal-content{background:#fff;border-radius:15px;padding:30px;max-width:500px;width:90%;max-height:90vh;overflow-y:auto}
+.modal-content-sm{max-width:400px}
+.modal-content-md{max-width:560px}
 .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
 .modal-close{background:none;border:none;font-size:1.5rem;cursor:pointer}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
 .form-grid .fg.full{grid-column:1/-1}
-.btn-save{padding:10px 20px;background:var(--green);border:none;border-radius:8px;font-weight:700;cursor:pointer}
+.btn-save{padding:10px 20px;background:var(--green);border:none;border-radius:8px;font-weight:700;cursor:pointer;color:var(--dark)}
 .btn-cancel{padding:10px 20px;background:#ddd;border:none;border-radius:8px;cursor:pointer;margin-right:10px}
+.form-actions{margin-top:20px;text-align:right}
+.textarea-field{width:100%;padding:10px;border:2px solid #ddd;border-radius:8px;font-family:inherit;font-size:.9rem;resize:vertical}
 .pr-card{background:#fff;padding:15px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:15px}
 .pr-card-title{font-weight:700;margin-bottom:10px}
 .pr-card-meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.pr-card-info{font-size:.85rem;color:#666;margin-bottom:8px}
+.pr-card-footer{display:flex;justify-content:space-between;align-items:center}
 .countdown{font-size:.85rem;font-weight:700}
 .countdown.urgent{color:#e05c5c}
 .countdown.soon{color:#c47a00}
 .countdown.ok{color:var(--teal)}
 .toast{position:fixed;bottom:20px;right:20px;background:var(--dark);color:var(--mint);padding:15px 20px;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,.3);z-index:2000;opacity:0;transition:.3s}
 .toast.show{opacity:1}
+.row-dimmed{opacity:.5}
+.kumpul-desc{margin-bottom:15px;color:#666}
+.import-body{padding:20px 0}
+.import-hint{background:var(--mint);padding:15px;border-radius:8px;margin-bottom:15px;font-size:.85rem}
+.import-file{width:100%;padding:10px;border:2px dashed var(--green);border-radius:8px;cursor:pointer}
+.import-preview{margin-top:15px;display:none}
+.import-preview-title{font-weight:600;margin-bottom:8px}
+.import-preview-content{max-height:200px;overflow-y:auto;background:#f9f9f9;padding:10px;border-radius:8px;font-size:.8rem}
+.text-right{text-align:right}
+.progress-bar-wrap{background:#ddd;border-radius:99px;height:12px;overflow:hidden}
+.progress-bar-inner{background:linear-gradient(90deg,var(--green),var(--teal));height:100%;border-radius:99px;transition:width 1s}
+.progress-header{display:flex;justify-content:space-between;margin-bottom:10px}
+.progress-label{font-weight:600}
+.progress-pct{font-weight:700;color:var(--teal)}
 @media(max-width:768px){
 .sidebar{width:100%;height:auto;position:relative}
 .main{margin-left:0}
@@ -91,13 +122,13 @@ tbody tr:hover{background:var(--mint)}
 <div class="login-page">
 <div class="login-box">
 <div class="login-logo">
-<div style="font-size:3rem"></div>
+<div class="login-logo-icon">📚</div>
 <h1>PR Tracker</h1>
-<p style="color:#888">Platform Pengingat Tugas</p>
+<p class="login-subtitle">Platform Pengingat Tugas</p>
 </div>
 <div class="role-tabs">
-<button class="role-tab active" onclick="selectRole('guru')"> Guru</button>
-<button class="role-tab" onclick="selectRole('murid')"> Murid</button>
+<button type="button" class="role-tab active" onclick="selectRole('guru',this)"> Guru</button>
+<button type="button" class="role-tab" onclick="selectRole('murid',this)"> Murid</button>
 </div>
 <div class="fg">
 <label>Nama</label>
@@ -112,8 +143,8 @@ tbody tr:hover{background:var(--mint)}
 <option>X-C</option>
 </select>
 </div>
-<button class="btn-primary" onclick="login()">Masuk </button>
-<p style="text-align:center;margin-top:15px;font-size:.8rem;color:#aaa">Demo: ketik nama lalu klik Masuk</p>
+<button type="button" class="btn-primary" onclick="login()">Masuk 🚀</button>
+<p class="login-hint">Demo: ketik nama lalu klik Masuk</p>
 </div>
 </div>
 </div>
@@ -127,21 +158,21 @@ tbody tr:hover{background:var(--mint)}
 </div>
 <div id="navMenu"></div>
 <div class="user-info">
-<div style="font-weight:700" id="userName"></div>
-<div style="font-size:.8rem;opacity:.7" id="userRole"></div>
-<button onclick="logout()" style="margin-top:10px;padding:8px 15px;background:var(--green);border:none;border-radius:6px;cursor:pointer;width:100%">Keluar</button>
+<div class="user-name" id="userName"></div>
+<div class="user-role" id="userRole"></div>
+<button type="button" class="btn-logout" onclick="logout()">Keluar</button>
 </div>
 </aside>
 
 <main class="main">
 <div class="topbar">
-<div>
+<div class="topbar-left">
 <h2 id="pageTitle">Dashboard</h2>
-<div style="font-size:.85rem;color:#888" id="currentDate"></div>
+<div class="topbar-date" id="currentDate"></div>
 </div>
-<button class="btn-add hidden" id="btnAdd" onclick="openAddModal()">＋ Tambah PR</button>
-<button class="btn-add hidden" id="btnImport" onclick="openImportModal()" style="background:var(--teal);margin-left:10px">📥 Import CSV</button>
-<a href="template_pr.csv" download class="btn-add hidden" id="btnTemplate" style="background:var(--yellow);color:var(--dark);text-decoration:none;margin-left:10px">📄 Download Template</a>
+<button class="btn-add hidden" id="btnAdd" onclick="openAddModal()" type="button">＋ Tambah PR</button>
+<button class="btn-add btn-teal hidden" id="btnImport" onclick="openImportModal()" type="button">📥 Import CSV</button>
+<a href="template_pr.csv" download class="btn-add btn-yellow hidden" id="btnTemplate">📄 Download Template</a>
 </div>
 
 <div id="contentArea"></div>
@@ -154,7 +185,7 @@ tbody tr:hover{background:var(--mint)}
 <div class="modal-content">
 <div class="modal-header">
 <h3 id="modalTitle">Tambah PR</h3>
-<button class="modal-close" onclick="closeModal()"></button>
+<button type="button" class="modal-close" onclick="closeModal()" aria-label="Tutup modal">×</button>
 </div>
 <form onsubmit="savePR(event)">
 <div class="form-grid">
@@ -208,12 +239,12 @@ tbody tr:hover{background:var(--mint)}
 </div>
 <div class="fg full">
 <label>Catatan</label>
-<textarea id="fCatatan" rows="3" style="width:100%;padding:10px;border:2px solid #ddd;border-radius:8px"></textarea>
+<textarea id="fCatatan" rows="3" class="textarea-field"></textarea>
 </div>
 </div>
-<div style="margin-top:20px;text-align:right">
+<div class="form-actions">
 <button type="button" class="btn-cancel" onclick="closeModal()">Batal</button>
-<button type="submit" class="btn-save"> Simpan</button>
+<button type="submit" class="btn-save">💾 Simpan</button>
 </div>
 </form>
 </div>
@@ -221,19 +252,19 @@ tbody tr:hover{background:var(--mint)}
 
 <!-- MODAL KUMPUL -->
 <div class="modal" id="kumpulModal">
-<div class="modal-content" style="max-width:400px">
+<div class="modal-content modal-content-sm">
 <div class="modal-header">
-<h3> Kumpulkan PR</h3>
-<button class="modal-close" onclick="closeKumpulModal()"></button>
+<h3>📬 Kumpulkan PR</h3>
+<button type="button" class="modal-close" onclick="closeKumpulModal()" aria-label="Tutup modal">×</button>
 </div>
-<p id="kumpulDesc" style="margin-bottom:15px;color:#666"></p>
+<p id="kumpulDesc" class="kumpul-desc"></p>
 <div class="fg">
 <label>Catatan</label>
-<textarea id="kumpulCatatan" rows="3" style="width:100%;padding:10px;border:2px solid #ddd;border-radius:8px"></textarea>
+<textarea id="kumpulCatatan" rows="3" class="textarea-field"></textarea>
 </div>
-<div style="margin-top:20px;text-align:right">
-<button class="btn-cancel" onclick="closeKumpulModal()">Batal</button>
-<button class="btn-save" onclick="submitKumpul()"> Kumpulkan</button>
+<div class="form-actions">
+<button type="button" class="btn-cancel" onclick="closeKumpulModal()">Batal</button>
+<button type="button" class="btn-save" onclick="submitKumpul()">📬 Kumpulkan</button>
 </div>
 </div>
 </div>
@@ -242,13 +273,13 @@ tbody tr:hover{background:var(--mint)}
 
 <!-- MODAL IMPORT CSV -->
 <div class="modal" id="importModal">
-<div class="modal-content" style="max-width:500px">
+<div class="modal-content modal-content-md">
 <div class="modal-header">
 <h3>📥 Import Data dari CSV</h3>
-<button class="modal-close" onclick="closeImportModal()">×</button>
+<button type="button" class="modal-close" onclick="closeImportModal()" aria-label="Tutup modal">×</button>
 </div>
-<div style="padding:20px 0">
-<div style="background:var(--mint);padding:15px;border-radius:8px;margin-bottom:15px;font-size:.85rem">
+<div class="import-body">
+<div class="import-hint">
 <strong>📌 Petunjuk:</strong><br>
 1. Download template CSV<br>
 2. Isi data di Excel/Google Sheets<br>
@@ -257,16 +288,16 @@ tbody tr:hover{background:var(--mint)}
 </div>
 <div class="fg">
 <label>Pilih File CSV *</label>
-<input type="file" id="csvFile" accept=".csv" style="width:100%;padding:10px;border:2px dashed var(--green);border-radius:8px;cursor:pointer">
+<input type="file" id="csvFile" accept=".csv" class="import-file">
 </div>
-<div id="importPreview" style="margin-top:15px;display:none">
-<div style="font-weight:600;margin-bottom:8px">Preview Data:</div>
-<div style="max-height:200px;overflow-y:auto;background:var(--bg);padding:10px;border-radius:8px;font-size:.8rem" id="previewContent"></div>
+<div id="importPreview" class="import-preview">
+<div class="import-preview-title">Preview Data:</div>
+<div class="import-preview-content" id="previewContent"></div>
 </div>
 </div>
-<div style="text-align:right">
-<button class="btn-cancel" onclick="closeImportModal()">Batal</button>
-<button class="btn-save" id="btnConfirmImport" onclick="confirmImport()" disabled>✅ Import Data</button>
+<div class="text-right">
+<button type="button" class="btn-cancel" onclick="closeImportModal()">Batal</button>
+<button type="button" class="btn-save" id="btnConfirmImport" onclick="confirmImport()" disabled>✅ Import Data</button>
 </div>
 </div>
 </div>
@@ -322,10 +353,10 @@ function getCountdownClass(days){
 }
 
 // Login
-function selectRole(role){
+function selectRole(role, el){
   currentRole=role;
   document.querySelectorAll('.role-tab').forEach(t=>t.classList.remove('active'));
-  event.target.classList.add('active');
+  if(el) el.classList.add('active');
   document.getElementById('kelasWrap').classList.toggle('hidden',role==='guru');
 }
 
@@ -364,33 +395,42 @@ function initApp(){
     document.getElementById('btnImport').classList.remove('hidden');
     document.getElementById('btnTemplate').classList.remove('hidden');
     renderGuruNav();
-    showView('dashboard');
+    showView('dashboard', null);
   }else{
     document.getElementById('btnAdd').classList.add('hidden');
     renderMuridNav();
-    showView('mypr');
+    showView('mypr', null);
   }
   checkNotifications();
 }
 
 function renderGuruNav(){
   document.getElementById('navMenu').innerHTML=`
-    <div class="nav-item active" onclick="showView('dashboard')"> Dashboard</div>
-    <div class="nav-item" onclick="showView('daftar')"> Daftar PR</div>
+    <div class="nav-item active" onclick="showView('dashboard',this)"> Dashboard</div>
+    <div class="nav-item" onclick="showView('daftar',this)"> Daftar PR</div>
   `;
 }
 
 function renderMuridNav(){
   document.getElementById('navMenu').innerHTML=`
-    <div class="nav-item active" onclick="showView('mypr')"> PR Saya</div>
-    <div class="nav-item" onclick="showView('allpr')"> Semua PR</div>
+    <div class="nav-item active" onclick="showView('mypr',this)"> PR Saya</div>
+    <div class="nav-item" onclick="showView('allpr',this)"> Semua PR</div>
   `;
 }
 
-function showView(view){
+function showView(view, el){
   currentView=view;
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  event.target.classList.add('active');
+  // el bisa dari onclick atau null saat dipanggil dari initApp
+  if(el) el.classList.add('active');
+  else {
+    // aktifkan nav item yang sesuai berdasarkan view
+    document.querySelectorAll('.nav-item').forEach(n=>{
+      if(n.getAttribute('onclick') && n.getAttribute('onclick').includes(`'${view}'`)){
+        n.classList.add('active');
+      }
+    });
+  }
   
   if(currentUser.role==='guru'){
     if(view==='dashboard')renderGuruDashboard();
@@ -434,16 +474,16 @@ function renderGuruDashboard(){
       <div class="stat-card dark"><div class="stat-num">${late}</div><div class="stat-label">Terlambat</div></div>
     </div>
     <div class="card">
-      <div style="display:flex;justify-content:space-between;margin-bottom:10px">
-        <span style="font-weight:600">Progress Pengumpulan</span>
-        <span style="font-weight:700;color:var(--teal)">${pct}%</span>
+      <div class="progress-header">
+        <span class="progress-label">Progress Pengumpulan</span>
+        <span class="progress-pct">${pct}%</span>
       </div>
-      <div style="background:#ddd;border-radius:99px;height:12px;overflow:hidden">
-        <div style="background:linear-gradient(90deg,var(--green),var(--teal));height:100%;width:${pct}%;border-radius:99px;transition:width 1s"></div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-inner" style="width:${pct}%"></div>
       </div>
     </div>
     <div class="card">
-      <div class="card-title"> Daftar PR Terbaru</div>
+      <div class="card-title">📋 Daftar PR Terbaru</div>
       <table>
         <thead><tr><th>Nama</th><th>Kelas</th><th>Judul PR</th><th>Deadline</th><th>Status</th></tr></thead>
         <tbody>
@@ -481,8 +521,8 @@ function renderDaftarPR(){
               <td><span class="badge badge-${p.status==='Sudah Dikumpulkan'?'done':p.status==='Terlambat'?'late':'pending'}">${p.status}</span></td>
               <td>${p.nilai||'-'}</td>
               <td>
-                <button class="btn-sm btn-edit" onclick="editPR(${p.id})"></button>
-                <button class="btn-sm btn-del" onclick="deletePR(${p.id})"></button>
+                <button type="button" class="btn-sm btn-edit" onclick="editPR(${p.id})" aria-label="Edit PR">✏️</button>
+                <button type="button" class="btn-sm btn-del" onclick="deletePR(${p.id})" aria-label="Hapus PR">🗑️</button>
               </td>
             </tr>
           `).join('')}
@@ -510,18 +550,18 @@ function renderMyPR(){
       <div class="stat-card dark"><div class="stat-num">${late}</div><div class="stat-label">Terlambat</div></div>
     </div>
     <div class="card">
-      <div style="display:flex;justify-content:space-between;margin-bottom:10px">
-        <span style="font-weight:600">Progress Saya</span>
-        <span style="font-weight:700;color:var(--teal)">${pct}%</span>
+      <div class="progress-header">
+        <span class="progress-label">Progress Saya</span>
+        <span class="progress-pct">${pct}%</span>
       </div>
-      <div style="background:#ddd;border-radius:99px;height:12px;overflow:hidden">
-        <div style="background:linear-gradient(90deg,var(--green),var(--teal));height:100%;width:${pct}%;border-radius:99px;transition:width 1s"></div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-inner" style="width:${pct}%"></div>
       </div>
     </div>
     ${myPR.map(p=>{
       const days=getDaysUntil(p.deadline);
       const cdClass=getCountdownClass(days);
-      const cdText=p.status==='Sudah Dikumpulkan'?' Sudah dikumpulkan':days<0?` Terlambat ${Math.abs(days)} hari`:days===0?' Deadline hari ini!':` ${days} hari lagi`;
+      const cdText=p.status==='Sudah Dikumpulkan'?'✅ Sudah dikumpulkan':days<0?`⚠️ Terlambat ${Math.abs(days)} hari`:days===0?'⏰ Deadline hari ini!':`📅 ${days} hari lagi`;
       return`
         <div class="pr-card">
           <div class="pr-card-title">${p.judul}</div>
@@ -529,14 +569,14 @@ function renderMyPR(){
             <span class="badge badge-${p.mapel==='HTML'?'done':'pending'}">${p.mapel}</span>
             <span class="badge badge-${p.status==='Sudah Dikumpulkan'?'done':p.status==='Terlambat'?'late':'pending'}">${p.status}</span>
           </div>
-          <div style="font-size:.85rem;color:#666;margin-bottom:8px">
-            <div> Diberikan: ${formatDate(p.diberikan)}</div>
-            <div> Deadline: ${formatDate(p.deadline)}</div>
-            ${p.nilai?`<div> Nilai: <strong>${p.nilai}</strong></div>`:''}
+          <div class="pr-card-info">
+            <div>📅 Diberikan: ${formatDate(p.diberikan)}</div>
+            <div>⏰ Deadline: ${formatDate(p.deadline)}</div>
+            ${p.nilai?`<div>⭐ Nilai: <strong>${p.nilai}</strong></div>`:''}
           </div>
-          <div style="display:flex;justify-content:space-between;align-items:center">
+          <div class="pr-card-footer">
             <span class="countdown ${cdClass}">${cdText}</span>
-            ${p.status==='Belum Dikumpulkan'?`<button class="btn-sm btn-submit" onclick="openKumpulModal(${p.id})"> Kumpulkan</button>`:''}
+            ${p.status==='Belum Dikumpulkan'?`<button type="button" class="btn-sm btn-submit" onclick="openKumpulModal(${p.id})">📬 Kumpulkan</button>`:''}
           </div>
         </div>
       `;
@@ -558,7 +598,7 @@ function renderAllPR(){
           ${prData.filter(p=>p.kelas===currentUser.kelas).map(p=>{
             const isMine=myPRIds.includes(p.id);
             return`
-              <tr style="${isMine?'':'opacity:.5'}">
+              <tr class="${isMine?'':'row-dimmed'}">
                 <td>${p.judul}</td>
                 <td><span class="badge badge-${p.mapel==='HTML'?'done':'pending'}">${p.mapel}</span></td>
                 <td>${formatDate(p.diberikan)}</td>
@@ -670,7 +710,7 @@ function submitKumpul(){
 }
 
 // Init
-selectRole('guru');
+selectRole('guru', document.querySelector('.role-tab'));
 
 // Import CSV Functions
 let importedData = [];
