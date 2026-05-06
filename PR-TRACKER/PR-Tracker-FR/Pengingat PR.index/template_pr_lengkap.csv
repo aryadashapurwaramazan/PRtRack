@@ -1,0 +1,6 @@
+TEMPLATE INPUT DATA PR - JANGAN UBAH BARIS INI
+"Petunjuk: Isi data mulai dari baris ke-4. Hapus baris contoh (baris 4-6) sebelum import. Format tanggal: YYYY-MM-DD. Status: Sudah Dikumpulkan / Belum Dikumpulkan / Terlambat"
+Nama Siswa,Kelas,Judul PR,Mata Pelajaran,Tanggal Diberikan,Deadline,Status,Nilai,Catatan
+Ahmad Fauzi,X-A,Membuat Halaman HTML Sederhana,HTML,2026-04-01,2026-04-08,Sudah Dikumpulkan,85,Bagus
+Siti Rahayu,X-A,Membuat Halaman HTML Sederhana,HTML,2026-04-01,2026-04-08,Belum Dikumpulkan,,Perlu diingatkan
+Budi Santoso,X-B,Styling dengan CSS Dasar,CSS,2026-04-05,2026-04-12,Terlambat,70,Terlambat 2 hari

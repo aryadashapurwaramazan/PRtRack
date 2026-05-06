@@ -1,0 +1,80 @@
+═══════════════════════════════════════════════════════════════
+  📘 PANDUAN IMPORT DATA PR KE WEB - PR TRACKER
+═══════════════════════════════════════════════════════════════
+
+🎯 CARA MENGGUNAKAN:
+
+1. DOWNLOAD TEMPLATE
+   - Klik tombol "📄 Download Template" di web
+   - File template_pr.csv akan terdownload
+
+2. BUKA DI EXCEL/GOOGLE SHEETS
+   - Buka file template_pr.csv
+   - Di Excel: File → Open → Pilih "All Files" → Pilih template_pr.csv
+   - Di Google Sheets: File → Import → Upload → Pilih template_pr.csv
+
+3. ISI DATA PR
+   Kolom yang WAJIB diisi:
+   ✓ Nama Siswa       : Nama lengkap siswa
+   ✓ Kelas            : X-A, X-B, atau X-C
+   ✓ Judul PR         : Judul tugas/PR
+   ✓ Mata Pelajaran   : HTML, CSS, JavaScript, atau Lainnya
+   ✓ Tanggal Diberikan: Format YYYY-MM-DD (contoh: 2026-04-01)
+   ✓ Deadline         : Format YYYY-MM-DD (contoh: 2026-04-08)
+   ✓ Status           : Sudah Dikumpulkan / Belum Dikumpulkan / Terlambat
+   
+   Kolom OPSIONAL:
+   - Nilai            : Angka 0-100 (kosongkan jika belum ada nilai)
+   - Catatan          : Catatan tambahan
+
+4. SAVE AS CSV
+   - Di Excel: File → Save As → Pilih "CSV UTF-8 (Comma delimited)"
+   - Di Google Sheets: File → Download → Comma Separated Values (.csv)
+
+5. IMPORT KE WEB
+   - Buka pr-tracker.html di browser
+   - Login sebagai Guru
+   - Klik tombol "📥 Import CSV"
+   - Pilih file CSV yang sudah diisi
+   - Klik "✅ Import Data"
+
+═══════════════════════════════════════════════════════════════
+
+📝 CONTOH DATA:
+
+Nama Siswa,Kelas,Judul PR,Mata Pelajaran,Tanggal Diberikan,Deadline,Status,Nilai,Catatan
+Ahmad Fauzi,X-A,Membuat Halaman HTML,HTML,2026-04-01,2026-04-08,Sudah Dikumpulkan,85,Bagus
+Siti Rahayu,X-A,Membuat Halaman HTML,HTML,2026-04-01,2026-04-08,Belum Dikumpulkan,,
+
+═══════════════════════════════════════════════════════════════
+
+⚠️ TIPS PENTING:
+
+✓ Gunakan format tanggal YYYY-MM-DD (tahun-bulan-hari)
+✓ Status harus persis: "Sudah Dikumpulkan", "Belum Dikumpulkan", atau "Terlambat"
+✓ Jangan ubah nama kolom di baris pertama
+✓ Kosongkan kolom Nilai jika belum ada nilai
+✓ Pastikan tidak ada baris kosong di tengah data
+✓ Save dengan encoding UTF-8 agar karakter Indonesia tidak rusak
+
+═══════════════════════════════════════════════════════════════
+
+❓ TROUBLESHOOTING:
+
+Q: Data tidak muncul setelah import?
+A: Pastikan format CSV benar dan tidak ada error di console browser (F12)
+
+Q: Tanggal tidak terbaca?
+A: Gunakan format YYYY-MM-DD, contoh: 2026-04-15
+
+Q: Karakter Indonesia (é, á, dll) jadi aneh?
+A: Save file dengan encoding UTF-8
+
+Q: Import gagal?
+A: Cek apakah semua kolom wajib sudah diisi dengan benar
+
+═══════════════════════════════════════════════════════════════
+
+📧 Butuh bantuan? Hubungi admin sekolah.
+
+═══════════════════════════════════════════════════════════════

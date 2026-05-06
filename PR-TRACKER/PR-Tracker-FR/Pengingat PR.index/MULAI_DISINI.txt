@@ -1,0 +1,138 @@
+╔═══════════════════════════════════════════════════════════════╗
+║                                                               ║
+║          📘 PR TRACKER - SISTEM PENGINGAT TUGAS              ║
+║                                                               ║
+║              Platform Web untuk Guru & Murid                 ║
+║                                                               ║
+╚═══════════════════════════════════════════════════════════════╝
+
+
+🚀 CARA MEMULAI:
+═══════════════════════════════════════════════════════════════
+
+1. Double-click file: pr-tracker.html
+2. Pilih role (Guru atau Murid)
+3. Masukkan nama
+4. Klik "Masuk"
+
+
+📁 FILE YANG TERSEDIA:
+═══════════════════════════════════════════════════════════════
+
+✅ pr-tracker.html
+   → File utama aplikasi web (buka file ini!)
+   → Ukuran: 32 KB
+   → Bisa dibuka di browser apapun
+
+✅ template_pr.csv
+   → Template spreadsheet untuk import data
+   → Buka di Excel atau Google Sheets
+   → Isi data lalu import ke web
+
+✅ template_pr_lengkap.csv
+   → Template dengan contoh data lengkap
+   → Gunakan sebagai referensi
+
+✅ README_GURU.md
+   → Panduan lengkap untuk guru
+   → Cara import, edit, hapus data
+   → Tips & troubleshooting
+
+✅ PANDUAN_IMPORT.txt
+   → Panduan step-by-step import CSV
+   → Format data yang benar
+   → Contoh pengisian
+
+
+🎯 UNTUK GURU:
+═══════════════════════════════════════════════════════════════
+
+CARA 1: Import dari Spreadsheet (MUDAH!)
+   1. Buka pr-tracker.html
+   2. Login sebagai Guru
+   3. Klik "📄 Download Template"
+   4. Isi data di Excel/Google Sheets
+   5. Save as CSV (UTF-8)
+   6. Klik "📥 Import CSV"
+   7. Pilih file CSV
+   8. Klik "✅ Import Data"
+   9. Selesai!
+
+CARA 2: Input Manual
+   1. Buka pr-tracker.html
+   2. Login sebagai Guru
+   3. Klik "＋ Tambah PR"
+   4. Isi form
+   5. Klik "💾 Simpan"
+
+
+🎒 UNTUK MURID:
+═══════════════════════════════════════════════════════════════
+
+   1. Buka pr-tracker.html
+   2. Pilih role "🎒 Murid"
+   3. Masukkan nama & kelas
+   4. Lihat PR yang harus dikerjakan
+   5. Klik "📤 Kumpulkan" jika sudah selesai
+
+
+✨ FITUR UTAMA:
+═══════════════════════════════════════════════════════════════
+
+✓ Import data dari Excel/Google Sheets
+✓ Dashboard dengan statistik lengkap
+✓ Notifikasi deadline otomatis
+✓ Countdown waktu pengumpulan
+✓ Progress tracking per siswa
+✓ Filter & pencarian data
+✓ Responsive (bisa di HP/tablet)
+✓ Tidak perlu internet
+✓ Tidak perlu install apapun
+
+
+🎨 COLOR PALETTE:
+═══════════════════════════════════════════════════════════════
+
+🟢 Hijau (#8ACB88)  → Sudah dikumpulkan
+🟡 Kuning (#FFBF46) → Belum dikumpulkan  
+🔴 Merah            → Terlambat/Urgent
+🔵 Teal (#648381)   → Informasi
+⚫ Dark (#575761)   → Header/Sidebar
+🟩 Mint (#E4FDE1)   → Background
+
+
+⚠️ PENTING:
+═══════════════════════════════════════════════════════════════
+
+✓ Data disimpan di browser (localStorage)
+✓ Backup data secara berkala
+✓ Gunakan format tanggal: YYYY-MM-DD
+✓ Save CSV dengan encoding UTF-8
+✓ Jangan ubah nama kolom di template
+
+
+📱 KOMPATIBILITAS:
+═══════════════════════════════════════════════════════════════
+
+✓ Google Chrome
+✓ Mozilla Firefox
+✓ Microsoft Edge
+✓ Safari
+✓ Opera
+✓ Browser HP/Tablet
+
+
+❓ BUTUH BANTUAN?
+═══════════════════════════════════════════════════════════════
+
+1. Baca README_GURU.md (panduan lengkap)
+2. Baca PANDUAN_IMPORT.txt (cara import)
+3. Lihat template_pr_lengkap.csv (contoh data)
+4. Hubungi admin IT sekolah
+
+
+═══════════════════════════════════════════════════════════════
+
+              🎉 SELAMAT MENGGUNAKAN PR TRACKER! 🎉
+
+═══════════════════════════════════════════════════════════════

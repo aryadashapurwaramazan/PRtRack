@@ -1,0 +1,167 @@
+╔═══════════════════════════════════════════════════════════════╗
+║                                                               ║
+║        ✅ SUDAH TERKONEKSI DENGAN GOOGLE SHEETS!             ║
+║                                                               ║
+╚═══════════════════════════════════════════════════════════════╝
+
+
+🎉 KABAR BAIK!
+═══════════════════════════════════════════════════════════════
+
+File pr-tracker-sheets.html SUDAH TERKONEKSI dengan Google Sheets Anda!
+
+URL Google Sheets:
+https://docs.google.com/spreadsheets/d/e/2PACX-1vTsJB8EIo2-vj6d8PRK44yQIQp2JRdDaBpC_Kz6Aet7aTmJQyAP7Pf-JHysgUogiBczy3EczY8la0Hl/pub?output=csv
+
+
+🚀 CARA MENGGUNAKAN:
+═══════════════════════════════════════════════════════════════
+
+1️⃣  BUKA WEB
+    → Double-click file: pr-tracker-sheets.html
+    → Browser akan terbuka otomatis
+
+2️⃣  LOGIN
+    → Pilih role: Guru atau Murid
+    → Masukkan nama (dan kelas jika murid)
+    → Klik "Masuk"
+
+3️⃣  LIHAT DATA
+    → Data dari Google Sheets akan otomatis muncul!
+    → Akan ada notifikasi: "✅ Berhasil memuat X data"
+
+4️⃣  EDIT DATA (GURU)
+    → Klik tombol "📊 Edit di Sheets"
+    → Google Sheets akan terbuka di tab baru
+    → Edit data langsung di Google Sheets
+    → Kembali ke web, klik "🔄 Refresh"
+    → Data akan update!
+
+
+✨ FITUR OTOMATIS:
+═══════════════════════════════════════════════════════════════
+
+✅ Auto-refresh setiap 30 detik
+   → Data otomatis update tanpa perlu klik refresh
+
+✅ Real-time sync
+   → Edit di Google Sheets → Langsung muncul di web
+
+✅ Notifikasi deadline
+   → Otomatis muncul jika ada PR deadline hari ini
+
+
+🎯 UNTUK GURU:
+═══════════════════════════════════════════════════════════════
+
+CARA EDIT DATA:
+1. Klik tombol "📊 Edit di Sheets" di web
+2. Atau buka langsung Google Sheets Anda
+3. Edit data (tambah/ubah/hapus baris)
+4. Data otomatis sinkron ke web (tunggu 30 detik atau klik refresh)
+
+FORMAT DATA DI GOOGLE SHEETS:
+Kolom A: Nama Siswa
+Kolom B: Kelas (X-A / X-B / X-C)
+Kolom C: Judul PR
+Kolom D: Mata Pelajaran (HTML / CSS / JavaScript / Lainnya)
+Kolom E: Tanggal Diberikan (YYYY-MM-DD, contoh: 2026-04-15)
+Kolom F: Deadline (YYYY-MM-DD, contoh: 2026-04-22)
+Kolom G: Status (Sudah Dikumpulkan / Belum Dikumpulkan / Terlambat)
+Kolom H: Nilai (0-100, boleh kosong)
+Kolom I: Catatan (teks bebas, boleh kosong)
+
+
+🎒 UNTUK MURID:
+═══════════════════════════════════════════════════════════════
+
+1. Buka pr-tracker-sheets.html
+2. Pilih role "🎒 Murid"
+3. Masukkan nama & kelas
+4. Lihat PR yang harus dikerjakan
+5. Klik "🔄 Refresh" untuk update data terbaru
+
+
+📱 AKSES DARI HP:
+═══════════════════════════════════════════════════════════════
+
+GURU (Edit Data):
+1. Install Google Sheets app di HP
+2. Buka spreadsheet Anda
+3. Edit data seperti biasa
+4. Data otomatis sinkron ke web
+
+MURID (Lihat PR):
+1. Buka browser di HP
+2. Buka file pr-tracker-sheets.html
+3. Login sebagai Murid
+4. Lihat PR yang harus dikerjakan
+
+
+⚙️ PENGATURAN:
+═══════════════════════════════════════════════════════════════
+
+Auto-refresh: Setiap 30 detik
+(Data otomatis update tanpa perlu klik refresh manual)
+
+Jika ingin mengubah interval:
+1. Buka pr-tracker-sheets.html dengan Notepad
+2. Cari: const AUTO_REFRESH_INTERVAL = 30000;
+3. Ubah angka (dalam milidetik):
+   - 30000 = 30 detik
+   - 60000 = 60 detik (1 menit)
+   - 120000 = 2 menit
+4. Save file
+
+
+🔧 TROUBLESHOOTING:
+═══════════════════════════════════════════════════════════════
+
+❌ Data tidak muncul?
+   → Cek koneksi internet
+   → Pastikan Google Sheets sudah di-publish
+   → Klik tombol "🔄 Refresh"
+
+❌ Data tidak update setelah edit di Sheets?
+   → Tunggu 5-10 detik (Google butuh waktu untuk publish)
+   → Klik tombol "🔄 Refresh"
+   → Cek apakah edit sudah di-save di Google Sheets
+
+❌ Muncul error "Gagal memuat data"?
+   → Cek koneksi internet
+   → Refresh halaman (F5)
+   → Coba lagi beberapa saat
+
+
+💡 TIPS:
+═══════════════════════════════════════════════════════════════
+
+✓ Bookmark pr-tracker-sheets.html untuk akses cepat
+✓ Share file HTML ke murid via email/WhatsApp
+✓ Backup Google Sheets secara berkala
+✓ Gunakan Google Sheets app di HP untuk edit cepat
+✓ Beri akses edit Google Sheets hanya ke guru yang dipercaya
+
+
+📊 LINK PENTING:
+═══════════════════════════════════════════════════════════════
+
+Google Sheets Anda:
+https://docs.google.com/spreadsheets/d/1vTsJB8EIo2-vj6d8PRK44yQIQp2JRdDaBpC_Kz6Aet7aTmJQyAP7Pf-JHysgUogiBczy3EczY8la0Hl/edit
+
+(Klik tombol "📊 Edit di Sheets" di web untuk membuka)
+
+
+═══════════════════════════════════════════════════════════════
+
+              🎉 SISTEM SIAP DIGUNAKAN! 🎉
+
+═══════════════════════════════════════════════════════════════
+
+Langkah selanjutnya:
+1. Buka pr-tracker-sheets.html
+2. Test login sebagai Guru
+3. Klik "📊 Edit di Sheets" untuk edit data
+4. Share file HTML ke murid
+
+Selamat menggunakan! 🎓

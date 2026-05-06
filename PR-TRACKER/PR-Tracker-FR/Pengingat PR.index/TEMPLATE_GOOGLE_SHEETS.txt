@@ -1,0 +1,45 @@
+═══════════════════════════════════════════════════════════════
+  📊 TEMPLATE GOOGLE SHEETS - COPY PASTE KE GOOGLE SHEETS
+═══════════════════════════════════════════════════════════════
+
+INSTRUKSI:
+1. Buka Google Sheets baru
+2. Copy semua teks di bawah ini (mulai dari "Nama Siswa")
+3. Paste ke cell A1 di Google Sheets
+4. Data akan otomatis terpisah ke kolom-kolom
+
+───────────────────────────────────────────────────────────────
+
+Nama Siswa	Kelas	Judul PR	Mata Pelajaran	Tanggal Diberikan	Deadline	Status	Nilai	Catatan
+Ahmad Fauzi	X-A	Membuat Halaman HTML Sederhana	HTML	2026-04-01	2026-04-08	Sudah Dikumpulkan	85	Bagus
+Siti Rahayu	X-A	Membuat Halaman HTML Sederhana	HTML	2026-04-01	2026-04-08	Sudah Dikumpulkan	90	Sangat Bagus
+Budi Santoso	X-A	Membuat Halaman HTML Sederhana	HTML	2026-04-01	2026-04-08	Belum Dikumpulkan		Perlu diingatkan
+Dewi Lestari	X-A	Styling dengan CSS Dasar	CSS	2026-04-05	2026-04-12	Terlambat	70	Terlambat 2 hari
+Eko Prasetyo	X-B	Styling dengan CSS Dasar	CSS	2026-04-05	2026-04-12	Sudah Dikumpulkan	88	Baik
+Fitri Handayani	X-B	CSS Flexbox Layout	CSS	2026-04-10	2026-04-17	Sudah Dikumpulkan	92	Excellent
+Gilang Ramadhan	X-B	CSS Flexbox Layout	CSS	2026-04-10	2026-04-17	Belum Dikumpulkan		Perlu diingatkan
+Hana Pertiwi	X-C	HTML Form dan Input	HTML	2026-04-15	2026-04-22	Sudah Dikumpulkan	78	Cukup
+Irfan Maulana	X-C	HTML Form dan Input	HTML	2026-04-15	2026-04-22	Belum Dikumpulkan		
+Joko Widodo	X-C	CSS Grid Layout	CSS	2026-04-20	2026-04-27	Belum Dikumpulkan		Deadline besok!
+
+───────────────────────────────────────────────────────────────
+
+SETELAH PASTE:
+1. Baris pertama akan jadi header (bold)
+2. Format kolom E & F sebagai tanggal (Format → Number → Date)
+3. File → Share → Publish to web
+4. Pilih "Entire Document" → Format: CSV
+5. Klik "Publish"
+6. Copy Sheet ID dari URL
+7. Paste ke pr-tracker-sheets.html
+
+═══════════════════════════════════════════════════════════════
+
+TIPS:
+✓ Gunakan Tab untuk pindah kolom (jangan koma)
+✓ Format tanggal: YYYY-MM-DD
+✓ Status: Sudah Dikumpulkan / Belum Dikumpulkan / Terlambat
+✓ Kelas: X-A / X-B / X-C
+✓ Kosongkan nilai jika belum ada
+
+═══════════════════════════════════════════════════════════════

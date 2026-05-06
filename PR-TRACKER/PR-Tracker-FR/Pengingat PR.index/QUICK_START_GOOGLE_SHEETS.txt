@@ -1,0 +1,131 @@
+╔═══════════════════════════════════════════════════════════════╗
+║                                                               ║
+║     🚀 QUICK START: GOOGLE SHEETS INTEGRATION                ║
+║                                                               ║
+╚═══════════════════════════════════════════════════════════════╝
+
+
+⚡ SETUP CEPAT (5 MENIT):
+═══════════════════════════════════════════════════════════════
+
+1️⃣  BUAT GOOGLE SHEETS
+    → Buka: sheets.google.com
+    → Klik: + Blank
+    → Nama: "PR Tracker Database"
+    → Copy paste data dari TEMPLATE_GOOGLE_SHEETS.txt
+
+2️⃣  PUBLISH SHEETS
+    → File → Share → Publish to web
+    → Pilih: Entire Document
+    → Format: CSV
+    → Centang: Automatically republish
+    → Klik: Publish
+
+3️⃣  COPY SHEET ID
+    → Lihat URL: https://docs.google.com/.../d/SHEET_ID/edit
+    → Copy bagian SHEET_ID
+    → Contoh: 1abc123XYZ456
+
+4️⃣  UPDATE HTML
+    → Buka: pr-tracker-sheets.html (dengan Notepad)
+    → Cari: const SHEET_ID = 'GANTI_DENGAN_SHEET_ID_ANDA';
+    → Ganti dengan Sheet ID Anda
+    → Save (Ctrl+S)
+
+5️⃣  TEST!
+    → Double-click: pr-tracker-sheets.html
+    → Login sebagai Guru/Murid
+    → Lihat data muncul!
+
+
+✅ BERHASIL JIKA:
+═══════════════════════════════════════════════════════════════
+
+✓ Muncul toast: "✅ Berhasil memuat X data dari Google Sheets"
+✓ Data dari Google Sheets tampil di web
+✓ Tombol "🔄 Refresh" berfungsi
+✓ Tombol "📊 Edit di Sheets" membuka Google Sheets
+
+
+❌ GAGAL JIKA:
+═══════════════════════════════════════════════════════════════
+
+✗ Muncul: "⚠️ Silakan setup Google Sheets ID..."
+  → Solusi: Ganti SHEET_ID di HTML
+
+✗ Muncul: "❌ Gagal memuat data dari Google Sheets"
+  → Solusi: Pastikan sheet sudah di-publish
+
+✗ Data tidak muncul
+  → Solusi: Cek Sheet ID benar, sheet sudah di-publish
+
+
+📁 FILE YANG DIGUNAKAN:
+═══════════════════════════════════════════════════════════════
+
+✅ pr-tracker-sheets.html
+   → File utama (BUKA INI!)
+   → Terkoneksi dengan Google Sheets
+
+✅ TEMPLATE_GOOGLE_SHEETS.txt
+   → Template data untuk copy-paste ke Google Sheets
+
+✅ PANDUAN_LENGKAP_GOOGLE_SHEETS.md
+   → Panduan detail step-by-step dengan screenshot
+
+✅ SETUP_GOOGLE_SHEETS.md
+   → Panduan setup singkat
+
+
+🎯 CARA MENGGUNAKAN:
+═══════════════════════════════════════════════════════════════
+
+UNTUK GURU:
+1. Edit data di Google Sheets (dari HP/laptop)
+2. Data otomatis sinkron ke web
+3. Klik "🔄 Refresh" di web untuk update manual
+4. Klik "📊 Edit di Sheets" untuk buka Google Sheets
+
+UNTUK MURID:
+1. Buka pr-tracker-sheets.html
+2. Login sebagai Murid
+3. Lihat PR yang harus dikerjakan
+4. Klik "🔄 Refresh" untuk update data
+
+
+⚙️ FITUR AUTO-REFRESH:
+═══════════════════════════════════════════════════════════════
+
+✓ Data otomatis refresh setiap 30 detik
+✓ Tidak perlu klik refresh manual
+✓ Hemat bandwidth
+
+
+🔧 TROUBLESHOOTING:
+═══════════════════════════════════════════════════════════════
+
+Q: Data tidak update setelah edit di Sheets?
+A: Tunggu 5-10 detik, lalu klik "🔄 Refresh"
+
+Q: Sheet ID dimana?
+A: Di URL Google Sheets, bagian setelah /d/ dan sebelum /edit
+
+Q: Format tanggal salah?
+A: Gunakan YYYY-MM-DD (contoh: 2026-04-15)
+
+Q: Karakter Indonesia jadi aneh?
+A: Pastikan Google Sheets di-save dengan encoding UTF-8
+
+
+📞 BUTUH BANTUAN LENGKAP?
+═══════════════════════════════════════════════════════════════
+
+Baca: PANDUAN_LENGKAP_GOOGLE_SHEETS.md
+(Panduan detail dengan gambar dan penjelasan lengkap)
+
+
+═══════════════════════════════════════════════════════════════
+
+              🎉 SELAMAT MENGGUNAKAN! 🎉
+
+═══════════════════════════════════════════════════════════════

@@ -1,0 +1,810 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PR Tracker - Pengingat Tugas</title>
+<style>
+:root{--mint:#E4FDE1;--green:#8ACB88;--teal:#648381;--dark:#575761;--yellow:#FFBF46}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,sans-serif;background:#f4faf3;color:#333}
+.hidden{display:none!important}
+.screen{display:none}.screen.active{display:block}
+.login-page{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--dark),var(--teal));padding:20px}
+.login-box{background:#fff;border-radius:20px;padding:40px;max-width:400px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.login-logo{text-align:center;margin-bottom:30px}
+.login-logo h1{font-size:2rem;color:var(--dark);margin:10px 0}
+.role-tabs{display:flex;gap:8px;margin-bottom:20px;background:var(--mint);border-radius:10px;padding:4px}
+.role-tab{flex:1;padding:10px;border:none;border-radius:8px;font-weight:600;background:transparent;color:var(--teal);cursor:pointer}
+.role-tab.active{background:var(--dark);color:var(--mint)}
+.fg{margin-bottom:15px}
+.fg label{display:block;font-size:.85rem;font-weight:600;margin-bottom:5px}
+.fg input,.fg select{width:100%;padding:10px;border:2px solid #ddd;border-radius:8px;font-size:.9rem}
+.fg input:focus,.fg select:focus{outline:none;border-color:var(--green)}
+.btn-primary{width:100%;padding:12px;background:var(--green);border:none;border-radius:10px;font-size:1rem;font-weight:700;color:var(--dark);cursor:pointer}
+.btn-primary:hover{background:#7abf78}
+.app{display:flex;min-height:100vh}
+.sidebar{width:240px;background:var(--dark);color:var(--mint);position:fixed;height:100vh;overflow-y:auto}
+.sidebar-logo{padding:20px;border-bottom:1px solid rgba(255,255,255,.1)}
+.sidebar-logo h2{font-size:1.3rem}
+.nav-item{display:flex;align-items:center;gap:10px;padding:12px 20px;color:rgba(228,253,225,.7);cursor:pointer;transition:.2s}
+.nav-item:hover{background:rgba(138,203,136,.15);color:var(--mint)}
+.nav-item.active{background:var(--green);color:var(--dark);font-weight:700}
+.user-info{padding:20px;border-top:1px solid rgba(255,255,255,.1);margin-top:auto}
+.main{margin-left:240px;flex:1;padding:20px}
+.topbar{background:#fff;padding:15px 20px;border-radius:12px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.btn-add{padding:10px 20px;background:var(--green);border:none;border-radius:8px;font-weight:700;cursor:pointer}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin-bottom:20px}
+.stat-card{background:#fff;padding:20px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.05);cursor:pointer;transition:.2s}
+.stat-card:hover{transform:translateY(-3px);box-shadow:0 4px 12px rgba(0,0,0,.1)}
+.stat-card.green{background:var(--green)}
+.stat-card.mint{background:var(--mint)}
+.stat-card.yellow{background:var(--yellow)}
+.stat-card.dark{background:var(--dark);color:var(--mint)}
+.stat-num{font-size:2rem;font-weight:800}
+.stat-label{font-size:.85rem;opacity:.8;margin-top:5px}
+.card{background:#fff;padding:20px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:20px}
+.card-title{font-size:1.1rem;font-weight:700;margin-bottom:15px}
+table{width:100%;border-collapse:collapse}
+thead{background:var(--dark);color:var(--mint)}
+th,td{padding:12px;text-align:left}
+tbody tr:nth-child(even){background:#f9f9f9}
+tbody tr:hover{background:var(--mint)}
+.badge{display:inline-block;padding:4px 10px;border-radius:20px;font-size:.75rem;font-weight:600}
+.badge-done{background:#d4f5d4;color:#1a6b1a}
+.badge-pending{background:#fff0cc;color:#7a5200}
+.badge-late{background:#fde0e0;color:#8b1a1a}
+.btn-sm{padding:5px 10px;border:none;border-radius:5px;font-size:.8rem;cursor:pointer;margin:0 2px}
+.btn-edit{background:var(--mint);color:var(--teal)}
+.btn-del{background:#fde0e0;color:#8b1a1a}
+.btn-submit{background:#d4f5d4;color:#1a6b1a}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);align-items:center;justify-content:center;z-index:1000}
+.modal.open{display:flex}
+.modal-content{background:#fff;border-radius:15px;padding:30px;max-width:500px;width:90%;max-height:90vh;overflow-y:auto}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.modal-close{background:none;border:none;font-size:1.5rem;cursor:pointer}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.form-grid .fg.full{grid-column:1/-1}
+.btn-save{padding:10px 20px;background:var(--green);border:none;border-radius:8px;font-weight:700;cursor:pointer}
+.btn-cancel{padding:10px 20px;background:#ddd;border:none;border-radius:8px;cursor:pointer;margin-right:10px}
+.pr-card{background:#fff;padding:15px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:15px}
+.pr-card-title{font-weight:700;margin-bottom:10px}
+.pr-card-meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.countdown{font-size:.85rem;font-weight:700}
+.countdown.urgent{color:#e05c5c}
+.countdown.soon{color:#c47a00}
+.countdown.ok{color:var(--teal)}
+.toast{position:fixed;bottom:20px;right:20px;background:var(--dark);color:var(--mint);padding:15px 20px;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,.3);z-index:2000;opacity:0;transition:.3s}
+.toast.show{opacity:1}
+@media(max-width:768px){
+.sidebar{width:100%;height:auto;position:relative}
+.main{margin-left:0}
+.stat-grid{grid-template-columns:1fr}
+.form-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div class="screen active" id="loginScreen">
+<div class="login-page">
+<div class="login-box">
+<div class="login-logo">
+<div style="font-size:3rem"></div>
+<h1>PR Tracker</h1>
+<p style="color:#888">Platform Pengingat Tugas</p>
+</div>
+<div class="role-tabs">
+<button class="role-tab active" onclick="selectRole('guru')"> Guru</button>
+<button class="role-tab" onclick="selectRole('murid')"> Murid</button>
+</div>
+<div class="fg">
+<label>Nama</label>
+<input type="text" id="loginNama" placeholder="Masukkan nama Anda">
+</div>
+<div class="fg hidden" id="kelasWrap">
+<label>Kelas</label>
+<select id="loginKelas">
+<option value="">Pilih kelas</option>
+<option>X-A</option>
+<option>X-B</option>
+<option>X-C</option>
+</select>
+</div>
+<button class="btn-primary" onclick="login()">Masuk </button>
+<p style="text-align:center;margin-top:15px;font-size:.8rem;color:#aaa">Demo: ketik nama lalu klik Masuk</p>
+</div>
+</div>
+</div>
+
+<!-- APP SCREEN -->
+<div class="screen" id="appScreen">
+<div class="app">
+<aside class="sidebar">
+<div class="sidebar-logo">
+<h2> PR Tracker</h2>
+</div>
+<div id="navMenu"></div>
+<div class="user-info">
+<div style="font-weight:700" id="userName"></div>
+<div style="font-size:.8rem;opacity:.7" id="userRole"></div>
+<button onclick="logout()" style="margin-top:10px;padding:8px 15px;background:var(--green);border:none;border-radius:6px;cursor:pointer;width:100%">Keluar</button>
+</div>
+</aside>
+
+<main class="main">
+<div class="topbar">
+<div>
+<h2 id="pageTitle">Dashboard</h2>
+<div style="font-size:.85rem;color:#888" id="currentDate"></div>
+</div>
+<button class="btn-add hidden" id="btnAdd" onclick="openAddModal()">＋ Tambah PR</button>
+<button class="btn-add hidden" id="btnImport" onclick="openImportModal()" style="background:var(--teal);margin-left:10px">📥 Import CSV</button>
+<a href="template_pr.csv" download class="btn-add hidden" id="btnTemplate" style="background:var(--yellow);color:var(--dark);text-decoration:none;margin-left:10px">📄 Download Template</a>
+</div>
+
+<div id="contentArea"></div>
+</main>
+</div>
+</div>
+
+<!-- MODAL ADD/EDIT -->
+<div class="modal" id="modal">
+<div class="modal-content">
+<div class="modal-header">
+<h3 id="modalTitle">Tambah PR</h3>
+<button class="modal-close" onclick="closeModal()"></button>
+</div>
+<form onsubmit="savePR(event)">
+<div class="form-grid">
+<div class="fg">
+<label>Nama Siswa *</label>
+<input type="text" id="fNama" required>
+</div>
+<div class="fg">
+<label>Kelas *</label>
+<select id="fKelas" required>
+<option value="">Pilih</option>
+<option>X-A</option>
+<option>X-B</option>
+<option>X-C</option>
+</select>
+</div>
+<div class="fg full">
+<label>Judul PR *</label>
+<input type="text" id="fJudul" required>
+</div>
+<div class="fg">
+<label>Mata Pelajaran *</label>
+<select id="fMapel" required>
+<option value="">Pilih</option>
+<option>HTML</option>
+<option>CSS</option>
+<option>JavaScript</option>
+<option>Lainnya</option>
+</select>
+</div>
+<div class="fg">
+<label>Status *</label>
+<select id="fStatus" required>
+<option value="">Pilih</option>
+<option>Sudah Dikumpulkan</option>
+<option>Belum Dikumpulkan</option>
+<option>Terlambat</option>
+</select>
+</div>
+<div class="fg">
+<label>Tanggal Diberikan *</label>
+<input type="date" id="fDiberikan" required>
+</div>
+<div class="fg">
+<label>Deadline *</label>
+<input type="date" id="fDeadline" required>
+</div>
+<div class="fg">
+<label>Nilai (0-100)</label>
+<input type="number" id="fNilai" min="0" max="100">
+</div>
+<div class="fg full">
+<label>Catatan</label>
+<textarea id="fCatatan" rows="3" style="width:100%;padding:10px;border:2px solid #ddd;border-radius:8px"></textarea>
+</div>
+</div>
+<div style="margin-top:20px;text-align:right">
+<button type="button" class="btn-cancel" onclick="closeModal()">Batal</button>
+<button type="submit" class="btn-save"> Simpan</button>
+</div>
+</form>
+</div>
+</div>
+
+<!-- MODAL KUMPUL -->
+<div class="modal" id="kumpulModal">
+<div class="modal-content" style="max-width:400px">
+<div class="modal-header">
+<h3> Kumpulkan PR</h3>
+<button class="modal-close" onclick="closeKumpulModal()"></button>
+</div>
+<p id="kumpulDesc" style="margin-bottom:15px;color:#666"></p>
+<div class="fg">
+<label>Catatan</label>
+<textarea id="kumpulCatatan" rows="3" style="width:100%;padding:10px;border:2px solid #ddd;border-radius:8px"></textarea>
+</div>
+<div style="margin-top:20px;text-align:right">
+<button class="btn-cancel" onclick="closeKumpulModal()">Batal</button>
+<button class="btn-save" onclick="submitKumpul()"> Kumpulkan</button>
+</div>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- MODAL IMPORT CSV -->
+<div class="modal" id="importModal">
+<div class="modal-content" style="max-width:500px">
+<div class="modal-header">
+<h3>📥 Import Data dari CSV</h3>
+<button class="modal-close" onclick="closeImportModal()">×</button>
+</div>
+<div style="padding:20px 0">
+<div style="background:var(--mint);padding:15px;border-radius:8px;margin-bottom:15px;font-size:.85rem">
+<strong>📌 Petunjuk:</strong><br>
+1. Download template CSV<br>
+2. Isi data di Excel/Google Sheets<br>
+3. Save as CSV (UTF-8)<br>
+4. Upload file di bawah ini
+</div>
+<div class="fg">
+<label>Pilih File CSV *</label>
+<input type="file" id="csvFile" accept=".csv" style="width:100%;padding:10px;border:2px dashed var(--green);border-radius:8px;cursor:pointer">
+</div>
+<div id="importPreview" style="margin-top:15px;display:none">
+<div style="font-weight:600;margin-bottom:8px">Preview Data:</div>
+<div style="max-height:200px;overflow-y:auto;background:var(--bg);padding:10px;border-radius:8px;font-size:.8rem" id="previewContent"></div>
+</div>
+</div>
+<div style="text-align:right">
+<button class="btn-cancel" onclick="closeImportModal()">Batal</button>
+<button class="btn-save" id="btnConfirmImport" onclick="confirmImport()" disabled>✅ Import Data</button>
+</div>
+</div>
+</div>
+
+<script>// Data & State
+let currentUser = null;
+let currentRole = null;
+let currentView = 'dashboard';
+let editingId = null;
+let kumpulId = null;
+
+let prData = [
+  {id:1,nama:'Ahmad Fauzi',kelas:'X-A',judul:'Membuat Halaman HTML Sederhana',mapel:'HTML',diberikan:'2026-04-01',deadline:'2026-04-08',status:'Sudah Dikumpulkan',nilai:85,catatan:'Bagus'},
+  {id:2,nama:'Siti Rahayu',kelas:'X-A',judul:'Membuat Halaman HTML Sederhana',mapel:'HTML',diberikan:'2026-04-01',deadline:'2026-04-08',status:'Sudah Dikumpulkan',nilai:90,catatan:'Sangat Bagus'},
+  {id:3,nama:'Budi Santoso',kelas:'X-A',judul:'Membuat Halaman HTML Sederhana',mapel:'HTML',diberikan:'2026-04-01',deadline:'2026-04-08',status:'Belum Dikumpulkan',nilai:null,catatan:''},
+  {id:4,nama:'Dewi Lestari',kelas:'X-A',judul:'Styling dengan CSS Dasar',mapel:'CSS',diberikan:'2026-04-05',deadline:'2026-04-12',status:'Terlambat',nilai:70,catatan:'Terlambat 2 hari'},
+  {id:5,nama:'Eko Prasetyo',kelas:'X-B',judul:'Styling dengan CSS Dasar',mapel:'CSS',diberikan:'2026-04-05',deadline:'2026-04-12',status:'Sudah Dikumpulkan',nilai:88,catatan:'Baik'},
+  {id:6,nama:'Fitri Handayani',kelas:'X-B',judul:'CSS Flexbox Layout',mapel:'CSS',diberikan:'2026-04-10',deadline:'2026-04-17',status:'Sudah Dikumpulkan',nilai:92,catatan:'Excellent'},
+  {id:7,nama:'Gilang Ramadhan',kelas:'X-B',judul:'CSS Flexbox Layout',mapel:'CSS',diberikan:'2026-04-10',deadline:'2026-04-17',status:'Belum Dikumpulkan',nilai:null,catatan:''},
+  {id:8,nama:'Hana Pertiwi',kelas:'X-C',judul:'HTML Form dan Input',mapel:'HTML',diberikan:'2026-04-15',deadline:'2026-04-22',status:'Sudah Dikumpulkan',nilai:78,catatan:'Cukup'},
+  {id:9,nama:'Irfan Maulana',kelas:'X-C',judul:'HTML Form dan Input',mapel:'HTML',diberikan:'2026-04-15',deadline:'2026-04-22',status:'Belum Dikumpulkan',nilai:null,catatan:''},
+  {id:10,nama:'Joko Widodo',kelas:'X-C',judul:'CSS Grid Layout',mapel:'CSS',diberikan:'2026-04-20',deadline:'2026-04-27',status:'Belum Dikumpulkan',nilai:null,catatan:'Deadline besok!'},
+  {id:11,nama:'Kartika Sari',kelas:'X-A',judul:'CSS Grid Layout',mapel:'CSS',diberikan:'2026-04-20',deadline:'2026-04-27',status:'Sudah Dikumpulkan',nilai:94,catatan:'Excellent'},
+  {id:12,nama:'Lukman Hakim',kelas:'X-B',judul:'HTML Tabel dan List',mapel:'HTML',diberikan:'2026-04-22',deadline:'2026-04-29',status:'Belum Dikumpulkan',nilai:null,catatan:'Deadline hari ini!'},
+  {id:13,nama:'Maya Indah',kelas:'X-C',judul:'HTML Tabel dan List',mapel:'HTML',diberikan:'2026-04-22',deadline:'2026-04-29',status:'Belum Dikumpulkan',nilai:null,catatan:'Deadline hari ini!'},
+  {id:14,nama:'Nanda Putra',kelas:'X-A',judul:'CSS Animasi Dasar',mapel:'CSS',diberikan:'2026-04-25',deadline:'2026-05-02',status:'Belum Dikumpulkan',nilai:null,catatan:'Deadline 3 hari lagi'},
+  {id:15,nama:'Olivia Putri',kelas:'X-B',judul:'CSS Animasi Dasar',mapel:'CSS',diberikan:'2026-04-25',deadline:'2026-05-02',status:'Belum Dikumpulkan',nilai:null,catatan:''}
+];
+
+// Helpers
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+function formatDate(d){
+  const dt=new Date(d);
+  return dt.toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'});
+}
+
+function getDaysUntil(deadline){
+  const today=new Date();today.setHours(0,0,0,0);
+  const dl=new Date(deadline);dl.setHours(0,0,0,0);
+  return Math.floor((dl-today)/(1000*60*60*24));
+}
+
+function getCountdownClass(days){
+  if(days<0)return'urgent';
+  if(days<=3)return'soon';
+  return'ok';
+}
+
+// Login
+function selectRole(role){
+  currentRole=role;
+  document.querySelectorAll('.role-tab').forEach(t=>t.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('kelasWrap').classList.toggle('hidden',role==='guru');
+}
+
+function login(){
+  const nama=document.getElementById('loginNama').value.trim();
+  if(!nama){showToast('Masukkan nama Anda');return;}
+  if(currentRole==='murid'){
+    const kelas=document.getElementById('loginKelas').value;
+    if(!kelas){showToast('Pilih kelas Anda');return;}
+    currentUser={nama,kelas,role:'murid'};
+  }else{
+    currentUser={nama,role:'guru'};
+  }
+  document.getElementById('loginScreen').classList.remove('active');
+  document.getElementById('appScreen').classList.add('active');
+  initApp();
+}
+
+function logout(){
+  currentUser=null;
+  currentRole=null;
+  document.getElementById('appScreen').classList.remove('active');
+  document.getElementById('loginScreen').classList.add('active');
+  document.getElementById('loginNama').value='';
+  document.getElementById('loginKelas').value='';
+}
+
+// Init App
+function initApp(){
+  document.getElementById('userName').textContent=currentUser.nama;
+  document.getElementById('userRole').textContent=currentUser.role==='guru'?'Guru':'Murid - '+currentUser.kelas;
+  document.getElementById('currentDate').textContent=new Date().toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  
+  if(currentUser.role==='guru'){
+    document.getElementById('btnAdd').classList.remove('hidden');
+    document.getElementById('btnImport').classList.remove('hidden');
+    document.getElementById('btnTemplate').classList.remove('hidden');
+    renderGuruNav();
+    showView('dashboard');
+  }else{
+    document.getElementById('btnAdd').classList.add('hidden');
+    renderMuridNav();
+    showView('mypr');
+  }
+  checkNotifications();
+}
+
+function renderGuruNav(){
+  document.getElementById('navMenu').innerHTML=`
+    <div class="nav-item active" onclick="showView('dashboard')"> Dashboard</div>
+    <div class="nav-item" onclick="showView('daftar')"> Daftar PR</div>
+  `;
+}
+
+function renderMuridNav(){
+  document.getElementById('navMenu').innerHTML=`
+    <div class="nav-item active" onclick="showView('mypr')"> PR Saya</div>
+    <div class="nav-item" onclick="showView('allpr')"> Semua PR</div>
+  `;
+}
+
+function showView(view){
+  currentView=view;
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  event.target.classList.add('active');
+  
+  if(currentUser.role==='guru'){
+    if(view==='dashboard')renderGuruDashboard();
+    else if(view==='daftar')renderDaftarPR();
+  }else{
+    if(view==='mypr')renderMyPR();
+    else if(view==='allpr')renderAllPR();
+  }
+}
+
+// Notifications
+function checkNotifications(){
+  const today=new Date();today.setHours(0,0,0,0);
+  let myPR=prData;
+  if(currentUser.role==='murid'){
+    myPR=prData.filter(p=>p.nama===currentUser.nama&&p.kelas===currentUser.kelas);
+  }
+  const urgent=myPR.filter(p=>{
+    const dl=new Date(p.deadline);dl.setHours(0,0,0,0);
+    return p.status==='Belum Dikumpulkan'&&dl<=today;
+  });
+  if(urgent.length>0){
+    showToast(` Ada ${urgent.length} PR yang deadline-nya hari ini atau sudah lewat!`);
+  }
+}
+
+// Guru Dashboard
+function renderGuruDashboard(){
+  document.getElementById('pageTitle').textContent='Dashboard';
+  const total=prData.length;
+  const done=prData.filter(p=>p.status==='Sudah Dikumpulkan').length;
+  const pending=prData.filter(p=>p.status==='Belum Dikumpulkan').length;
+  const late=prData.filter(p=>p.status==='Terlambat').length;
+  const pct=total>0?Math.round((done/total)*100):0;
+  
+  document.getElementById('contentArea').innerHTML=`
+    <div class="stat-grid">
+      <div class="stat-card green"><div class="stat-num">${total}</div><div class="stat-label">Total PR</div></div>
+      <div class="stat-card mint"><div class="stat-num">${done}</div><div class="stat-label">Sudah Dikumpulkan</div></div>
+      <div class="stat-card yellow"><div class="stat-num">${pending}</div><div class="stat-label">Belum Dikumpulkan</div></div>
+      <div class="stat-card dark"><div class="stat-num">${late}</div><div class="stat-label">Terlambat</div></div>
+    </div>
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;margin-bottom:10px">
+        <span style="font-weight:600">Progress Pengumpulan</span>
+        <span style="font-weight:700;color:var(--teal)">${pct}%</span>
+      </div>
+      <div style="background:#ddd;border-radius:99px;height:12px;overflow:hidden">
+        <div style="background:linear-gradient(90deg,var(--green),var(--teal));height:100%;width:${pct}%;border-radius:99px;transition:width 1s"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"> Daftar PR Terbaru</div>
+      <table>
+        <thead><tr><th>Nama</th><th>Kelas</th><th>Judul PR</th><th>Deadline</th><th>Status</th></tr></thead>
+        <tbody>
+          ${prData.slice(0,10).map(p=>`
+            <tr>
+              <td>${p.nama}</td>
+              <td>${p.kelas}</td>
+              <td>${p.judul}</td>
+              <td>${formatDate(p.deadline)}</td>
+              <td><span class="badge badge-${p.status==='Sudah Dikumpulkan'?'done':p.status==='Terlambat'?'late':'pending'}">${p.status}</span></td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+// Daftar PR
+function renderDaftarPR(){
+  document.getElementById('pageTitle').textContent='Daftar PR';
+  document.getElementById('contentArea').innerHTML=`
+    <div class="card">
+      <table>
+        <thead><tr><th>#</th><th>Nama</th><th>Kelas</th><th>Judul PR</th><th>Mapel</th><th>Deadline</th><th>Status</th><th>Nilai</th><th>Aksi</th></tr></thead>
+        <tbody>
+          ${prData.map((p,i)=>`
+            <tr>
+              <td>${i+1}</td>
+              <td>${p.nama}</td>
+              <td>${p.kelas}</td>
+              <td>${p.judul}</td>
+              <td><span class="badge badge-${p.mapel==='HTML'?'done':'pending'}">${p.mapel}</span></td>
+              <td>${formatDate(p.deadline)}</td>
+              <td><span class="badge badge-${p.status==='Sudah Dikumpulkan'?'done':p.status==='Terlambat'?'late':'pending'}">${p.status}</span></td>
+              <td>${p.nilai||'-'}</td>
+              <td>
+                <button class="btn-sm btn-edit" onclick="editPR(${p.id})"></button>
+                <button class="btn-sm btn-del" onclick="deletePR(${p.id})"></button>
+              </td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+// My PR (Murid)
+function renderMyPR(){
+  document.getElementById('pageTitle').textContent='PR Saya';
+  const myPR=prData.filter(p=>p.nama===currentUser.nama&&p.kelas===currentUser.kelas);
+  const total=myPR.length;
+  const done=myPR.filter(p=>p.status==='Sudah Dikumpulkan').length;
+  const pending=myPR.filter(p=>p.status==='Belum Dikumpulkan').length;
+  const late=myPR.filter(p=>p.status==='Terlambat').length;
+  const pct=total>0?Math.round((done/total)*100):0;
+  
+  document.getElementById('contentArea').innerHTML=`
+    <div class="stat-grid">
+      <div class="stat-card green"><div class="stat-num">${total}</div><div class="stat-label">Total PR Saya</div></div>
+      <div class="stat-card mint"><div class="stat-num">${done}</div><div class="stat-label">Sudah Dikumpulkan</div></div>
+      <div class="stat-card yellow"><div class="stat-num">${pending}</div><div class="stat-label">Belum Dikumpulkan</div></div>
+      <div class="stat-card dark"><div class="stat-num">${late}</div><div class="stat-label">Terlambat</div></div>
+    </div>
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;margin-bottom:10px">
+        <span style="font-weight:600">Progress Saya</span>
+        <span style="font-weight:700;color:var(--teal)">${pct}%</span>
+      </div>
+      <div style="background:#ddd;border-radius:99px;height:12px;overflow:hidden">
+        <div style="background:linear-gradient(90deg,var(--green),var(--teal));height:100%;width:${pct}%;border-radius:99px;transition:width 1s"></div>
+      </div>
+    </div>
+    ${myPR.map(p=>{
+      const days=getDaysUntil(p.deadline);
+      const cdClass=getCountdownClass(days);
+      const cdText=p.status==='Sudah Dikumpulkan'?' Sudah dikumpulkan':days<0?` Terlambat ${Math.abs(days)} hari`:days===0?' Deadline hari ini!':` ${days} hari lagi`;
+      return`
+        <div class="pr-card">
+          <div class="pr-card-title">${p.judul}</div>
+          <div class="pr-card-meta">
+            <span class="badge badge-${p.mapel==='HTML'?'done':'pending'}">${p.mapel}</span>
+            <span class="badge badge-${p.status==='Sudah Dikumpulkan'?'done':p.status==='Terlambat'?'late':'pending'}">${p.status}</span>
+          </div>
+          <div style="font-size:.85rem;color:#666;margin-bottom:8px">
+            <div> Diberikan: ${formatDate(p.diberikan)}</div>
+            <div> Deadline: ${formatDate(p.deadline)}</div>
+            ${p.nilai?`<div> Nilai: <strong>${p.nilai}</strong></div>`:''}
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span class="countdown ${cdClass}">${cdText}</span>
+            ${p.status==='Belum Dikumpulkan'?`<button class="btn-sm btn-submit" onclick="openKumpulModal(${p.id})"> Kumpulkan</button>`:''}
+          </div>
+        </div>
+      `;
+    }).join('')}
+  `;
+}
+
+// All PR (Murid - read only)
+function renderAllPR(){
+  document.getElementById('pageTitle').textContent='Semua PR';
+  const myPR=prData.filter(p=>p.nama===currentUser.nama&&p.kelas===currentUser.kelas);
+  const myPRIds=myPR.map(p=>p.id);
+  
+  document.getElementById('contentArea').innerHTML=`
+    <div class="card">
+      <table>
+        <thead><tr><th>Judul PR</th><th>Mapel</th><th>Diberikan</th><th>Deadline</th><th>Status Saya</th><th>Nilai</th></tr></thead>
+        <tbody>
+          ${prData.filter(p=>p.kelas===currentUser.kelas).map(p=>{
+            const isMine=myPRIds.includes(p.id);
+            return`
+              <tr style="${isMine?'':'opacity:.5'}">
+                <td>${p.judul}</td>
+                <td><span class="badge badge-${p.mapel==='HTML'?'done':'pending'}">${p.mapel}</span></td>
+                <td>${formatDate(p.diberikan)}</td>
+                <td>${formatDate(p.deadline)}</td>
+                <td>${isMine?`<span class="badge badge-${p.status==='Sudah Dikumpulkan'?'done':p.status==='Terlambat'?'late':'pending'}">${p.status}</span>`:'-'}</td>
+                <td>${isMine&&p.nilai?p.nilai:'-'}</td>
+              </tr>
+            `;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+// Modal
+function openAddModal(){
+  editingId=null;
+  document.getElementById('modalTitle').textContent='Tambah PR Baru';
+  document.getElementById('fNama').value='';
+  document.getElementById('fKelas').value='';
+  document.getElementById('fJudul').value='';
+  document.getElementById('fMapel').value='';
+  document.getElementById('fStatus').value='';
+  document.getElementById('fDiberikan').value='';
+  document.getElementById('fDeadline').value='';
+  document.getElementById('fNilai').value='';
+  document.getElementById('fCatatan').value='';
+  document.getElementById('modal').classList.add('open');
+}
+
+function editPR(id){
+  const pr=prData.find(p=>p.id===id);
+  if(!pr)return;
+  editingId=id;
+  document.getElementById('modalTitle').textContent='Edit PR';
+  document.getElementById('fNama').value=pr.nama;
+  document.getElementById('fKelas').value=pr.kelas;
+  document.getElementById('fJudul').value=pr.judul;
+  document.getElementById('fMapel').value=pr.mapel;
+  document.getElementById('fStatus').value=pr.status;
+  document.getElementById('fDiberikan').value=pr.diberikan;
+  document.getElementById('fDeadline').value=pr.deadline;
+  document.getElementById('fNilai').value=pr.nilai||'';
+  document.getElementById('fCatatan').value=pr.catatan||'';
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal(){
+  document.getElementById('modal').classList.remove('open');
+}
+
+function savePR(e){
+  e.preventDefault();
+  const data={
+    nama:document.getElementById('fNama').value,
+    kelas:document.getElementById('fKelas').value,
+    judul:document.getElementById('fJudul').value,
+    mapel:document.getElementById('fMapel').value,
+    status:document.getElementById('fStatus').value,
+    diberikan:document.getElementById('fDiberikan').value,
+    deadline:document.getElementById('fDeadline').value,
+    nilai:document.getElementById('fNilai').value?parseInt(document.getElementById('fNilai').value):null,
+    catatan:document.getElementById('fCatatan').value
+  };
+  
+  if(editingId){
+    const idx=prData.findIndex(p=>p.id===editingId);
+    prData[idx]={...prData[idx],...data};
+    showToast(' PR berhasil diupdate');
+  }else{
+    const newId=Math.max(...prData.map(p=>p.id))+1;
+    prData.push({id:newId,...data});
+    showToast(' PR berhasil ditambahkan');
+  }
+  
+  closeModal();
+  renderDaftarPR();
+}
+
+function deletePR(id){
+  if(!confirm('Hapus PR ini?'))return;
+  prData=prData.filter(p=>p.id!==id);
+  showToast(' PR berhasil dihapus');
+  renderDaftarPR();
+}
+
+// Kumpul Modal
+function openKumpulModal(id){
+  kumpulId=id;
+  const pr=prData.find(p=>p.id===id);
+  document.getElementById('kumpulDesc').textContent=`Kumpulkan: ${pr.judul}`;
+  document.getElementById('kumpulCatatan').value='';
+  document.getElementById('kumpulModal').classList.add('open');
+}
+
+function closeKumpulModal(){
+  document.getElementById('kumpulModal').classList.remove('open');
+}
+
+function submitKumpul(){
+  const catatan=document.getElementById('kumpulCatatan').value;
+  const idx=prData.findIndex(p=>p.id===kumpulId);
+  prData[idx].status='Sudah Dikumpulkan';
+  if(catatan)prData[idx].catatan=catatan;
+  showToast(' PR berhasil dikumpulkan!');
+  closeKumpulModal();
+  renderMyPR();
+}
+
+// Init
+selectRole('guru');
+
+// Import CSV Functions
+let importedData = [];
+
+function openImportModal(){
+  document.getElementById('csvFile').value='';
+  document.getElementById('importPreview').style.display='none';
+  document.getElementById('btnConfirmImport').disabled=true;
+  importedData=[];
+  document.getElementById('importModal').classList.add('open');
+}
+
+function closeImportModal(){
+  document.getElementById('importModal').classList.remove('open');
+}
+
+document.getElementById('csvFile').addEventListener('change',function(e){
+  const file=e.target.files[0];
+  if(!file){
+    document.getElementById('importPreview').style.display='none';
+    document.getElementById('btnConfirmImport').disabled=true;
+    return;
+  }
+  
+  const reader=new FileReader();
+  reader.onload=function(event){
+    try{
+      const csv=event.target.result;
+      const lines=csv.split('\n').filter(line=>line.trim());
+      
+      if(lines.length<2){
+        showToast('❌ File CSV kosong atau tidak valid');
+        return;
+      }
+      
+      // Parse CSV
+      const headers=lines[0].split(',').map(h=>h.trim());
+      importedData=[];
+      
+      for(let i=1;i<lines.length;i++){
+        const values=parseCSVLine(lines[i]);
+        if(values.length===headers.length){
+          const row={};
+          headers.forEach((h,idx)=>{
+            row[h]=values[idx].trim();
+          });
+          
+          // Map to internal format
+          importedData.push({
+            id:Date.now()+i,
+            nama:row['Nama Siswa']||'',
+            kelas:row['Kelas']||'',
+            judul:row['Judul PR']||'',
+            mapel:row['Mata Pelajaran']||'',
+            diberikan:row['Tanggal Diberikan']||'',
+            deadline:row['Deadline']||'',
+            status:row['Status']||'Belum Dikumpulkan',
+            nilai:row['Nilai']?parseInt(row['Nilai']):null,
+            catatan:row['Catatan']||''
+          });
+        }
+      }
+      
+      if(importedData.length>0){
+        // Show preview
+        document.getElementById('previewContent').innerHTML=`
+          <div style="color:var(--green);font-weight:600;margin-bottom:8px">
+            ✅ ${importedData.length} data berhasil dibaca
+          </div>
+          ${importedData.slice(0,5).map(d=>`
+            <div style="padding:5px 0;border-bottom:1px solid #ddd">
+              <strong>${d.nama}</strong> (${d.kelas}) - ${d.judul}
+            </div>
+          `).join('')}
+          ${importedData.length>5?`<div style="padding:5px 0;color:#888">...dan ${importedData.length-5} data lainnya</div>`:''}
+        `;
+        document.getElementById('importPreview').style.display='block';
+        document.getElementById('btnConfirmImport').disabled=false;
+      }else{
+        showToast('❌ Tidak ada data valid yang ditemukan');
+      }
+      
+    }catch(err){
+      showToast('❌ Error membaca file: '+err.message);
+      console.error(err);
+    }
+  };
+  reader.readAsText(file);
+});
+
+function parseCSVLine(line){
+  const result=[];
+  let current='';
+  let inQuotes=false;
+  
+  for(let i=0;i<line.length;i++){
+    const char=line[i];
+    if(char==='"'){
+      inQuotes=!inQuotes;
+    }else if(char===','&&!inQuotes){
+      result.push(current);
+      current='';
+    }else{
+      current+=char;
+    }
+  }
+  result.push(current);
+  return result;
+}
+
+function confirmImport(){
+  if(importedData.length===0){
+    showToast('❌ Tidak ada data untuk diimport');
+    return;
+  }
+  
+  // Add to existing data
+  const maxId=prData.length>0?Math.max(...prData.map(p=>p.id)):0;
+  importedData.forEach((d,i)=>{
+    d.id=maxId+i+1;
+    prData.push(d);
+  });
+  
+  showToast(`✅ Berhasil import ${importedData.length} data PR!`);
+  closeImportModal();
+  
+  // Refresh view
+  if(currentView==='daftar'){
+    renderDaftarPR();
+  }else{
+    renderGuruDashboard();
+  }
+}
+
+</script>
+</body>
+</html>

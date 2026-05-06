@@ -1,0 +1,146 @@
+╔═══════════════════════════════════════════════════════════════╗
+║                                                               ║
+║          📘 PR TRACKER - PILIH VERSI YANG SESUAI             ║
+║                                                               ║
+╚═══════════════════════════════════════════════════════════════╝
+
+
+Ada 2 versi yang tersedia:
+
+═══════════════════════════════════════════════════════════════
+  1️⃣  VERSI STANDALONE (pr-tracker.html)
+═══════════════════════════════════════════════════════════════
+
+✅ KELEBIHAN:
+  • Tidak perlu internet
+  • Tidak perlu setup Google Sheets
+  • Langsung bisa digunakan
+  • Import CSV dari Excel/Google Sheets
+  • Data tersimpan di browser
+
+❌ KEKURANGAN:
+  • Data hilang jika clear browser
+  • Tidak bisa kolaborasi real-time
+  • Harus import manual setiap kali ada perubahan
+  • Tidak ada backup otomatis
+
+📌 COCOK UNTUK:
+  • Guru yang bekerja sendiri
+  • Tidak butuh kolaborasi
+  • Jarang update data
+  • Tidak ada koneksi internet stabil
+
+🚀 CARA PAKAI:
+  1. Double-click pr-tracker.html
+  2. Login sebagai Guru
+  3. Klik "📄 Download Template"
+  4. Isi data di Excel
+  5. Klik "📥 Import CSV"
+  6. Selesai!
+
+
+═══════════════════════════════════════════════════════════════
+  2️⃣  VERSI GOOGLE SHEETS (pr-tracker-sheets.html) ⭐ RECOMMENDED
+═══════════════════════════════════════════════════════════════
+
+✅ KELEBIHAN:
+  • Real-time sync dengan Google Sheets
+  • Kolaborasi dengan banyak guru
+  • Edit dari HP/laptop/tablet
+  • Backup otomatis oleh Google
+  • Auto-refresh setiap 30 detik
+  • Data tidak hilang
+  • Version history (bisa undo)
+
+❌ KEKURANGAN:
+  • Butuh internet
+  • Perlu setup Google Sheets (5 menit)
+  • Butuh akun Google
+
+📌 COCOK UNTUK:
+  • Banyak guru yang kolaborasi
+  • Butuh akses dari mana saja
+  • Update data sering
+  • Butuh backup otomatis
+  • Ada koneksi internet
+
+🚀 CARA PAKAI:
+  1. Buat Google Sheets
+  2. Publish to web
+  3. Copy Sheet ID
+  4. Update pr-tracker-sheets.html
+  5. Selesai!
+  
+  (Lihat: QUICK_START_GOOGLE_SHEETS.txt)
+
+
+═══════════════════════════════════════════════════════════════
+  📊 PERBANDINGAN FITUR
+═══════════════════════════════════════════════════════════════
+
+Fitur                    | Standalone | Google Sheets
+─────────────────────────┼────────────┼──────────────
+Real-time sync           |     ❌     |      ✅
+Kolaborasi               |     ❌     |      ✅
+Offline mode             |     ✅     |      ❌
+Import CSV               |     ✅     |      ❌
+Auto backup              |     ❌     |      ✅
+Edit dari HP             |     ❌     |      ✅
+Setup mudah              |     ✅     |      ⚠️
+Data persistent          |     ⚠️     |      ✅
+Version history          |     ❌     |      ✅
+Auto-refresh             |     ❌     |      ✅
+
+
+═══════════════════════════════════════════════════════════════
+  💡 REKOMENDASI
+═══════════════════════════════════════════════════════════════
+
+🏫 UNTUK SEKOLAH BESAR (>3 guru):
+   → Gunakan: pr-tracker-sheets.html
+   → Alasan: Kolaborasi real-time, backup otomatis
+
+👨‍🏫 UNTUK GURU TUNGGAL:
+   → Gunakan: pr-tracker.html
+   → Alasan: Lebih simple, tidak perlu setup
+
+📱 UNTUK AKSES MOBILE:
+   → Gunakan: pr-tracker-sheets.html
+   → Alasan: Edit dari HP via Google Sheets app
+
+💾 UNTUK OFFLINE:
+   → Gunakan: pr-tracker.html
+   → Alasan: Tidak butuh internet
+
+
+═══════════════════════════════════════════════════════════════
+  🔄 BISA PAKAI KEDUANYA?
+═══════════════════════════════════════════════════════════════
+
+YA! Anda bisa:
+1. Gunakan pr-tracker-sheets.html untuk kolaborasi
+2. Gunakan pr-tracker.html sebagai backup offline
+3. Export data dari Google Sheets → Import ke standalone
+
+
+═══════════════════════════════════════════════════════════════
+  📁 FILE PANDUAN
+═══════════════════════════════════════════════════════════════
+
+UNTUK STANDALONE:
+  • MULAI_DISINI.txt
+  • README_GURU.md
+  • PANDUAN_IMPORT.txt
+
+UNTUK GOOGLE SHEETS:
+  • QUICK_START_GOOGLE_SHEETS.txt ⭐ MULAI DISINI
+  • PANDUAN_LENGKAP_GOOGLE_SHEETS.md
+  • SETUP_GOOGLE_SHEETS.md
+  • TEMPLATE_GOOGLE_SHEETS.txt
+
+
+═══════════════════════════════════════════════════════════════
+
+            🎯 PILIH YANG SESUAI KEBUTUHAN ANDA!
+
+═══════════════════════════════════════════════════════════════

@@ -1,0 +1,89 @@
+═══════════════════════════════════════════════════════════════
+  📋 FORMAT DATA CSV - QUICK REFERENCE
+═══════════════════════════════════════════════════════════════
+
+HEADER (Baris 1 - JANGAN DIUBAH):
+Nama Siswa,Kelas,Judul PR,Mata Pelajaran,Tanggal Diberikan,Deadline,Status,Nilai,Catatan
+
+───────────────────────────────────────────────────────────────
+
+KOLOM 1: Nama Siswa
+  Format  : Teks bebas
+  Contoh  : Ahmad Fauzi
+  Wajib   : YA
+
+KOLOM 2: Kelas
+  Format  : X-A / X-B / X-C
+  Contoh  : X-A
+  Wajib   : YA
+  
+KOLOM 3: Judul PR
+  Format  : Teks bebas
+  Contoh  : Membuat Halaman HTML Sederhana
+  Wajib   : YA
+
+KOLOM 4: Mata Pelajaran
+  Format  : HTML / CSS / JavaScript / Lainnya
+  Contoh  : HTML
+  Wajib   : YA
+
+KOLOM 5: Tanggal Diberikan
+  Format  : YYYY-MM-DD
+  Contoh  : 2026-04-01
+  Wajib   : YA
+  
+KOLOM 6: Deadline
+  Format  : YYYY-MM-DD
+  Contoh  : 2026-04-08
+  Wajib   : YA
+
+KOLOM 7: Status
+  Format  : Sudah Dikumpulkan / Belum Dikumpulkan / Terlambat
+  Contoh  : Belum Dikumpulkan
+  Wajib   : YA
+  Catatan : Harus persis seperti contoh (huruf besar/kecil)
+
+KOLOM 8: Nilai
+  Format  : Angka 0-100
+  Contoh  : 85
+  Wajib   : TIDAK (boleh kosong)
+  
+KOLOM 9: Catatan
+  Format  : Teks bebas
+  Contoh  : Bagus, perlu perbaikan
+  Wajib   : TIDAK (boleh kosong)
+
+───────────────────────────────────────────────────────────────
+
+CONTOH DATA LENGKAP:
+
+Ahmad Fauzi,X-A,Membuat Halaman HTML,HTML,2026-04-01,2026-04-08,Sudah Dikumpulkan,85,Bagus
+Siti Rahayu,X-A,Membuat Halaman HTML,HTML,2026-04-01,2026-04-08,Belum Dikumpulkan,,
+Budi Santoso,X-B,Styling CSS Dasar,CSS,2026-04-05,2026-04-12,Terlambat,70,Terlambat 2 hari
+
+───────────────────────────────────────────────────────────────
+
+✅ BENAR:
+2026-04-15
+Sudah Dikumpulkan
+X-A
+
+❌ SALAH:
+15/04/2026          → Format tanggal salah
+15-04-2026          → Format tanggal salah
+sudah dikumpulkan   → Huruf kecil semua
+Sudah               → Tidak lengkap
+XA                  → Tidak ada tanda hubung
+10A                 → Bukan format X-A
+
+───────────────────────────────────────────────────────────────
+
+💡 TIPS:
+
+1. Copy paste contoh di atas ke Excel
+2. Ganti data sesuai kebutuhan
+3. Jangan ubah format tanggal
+4. Jangan ubah format status
+5. Save as "CSV UTF-8"
+
+═══════════════════════════════════════════════════════════════
